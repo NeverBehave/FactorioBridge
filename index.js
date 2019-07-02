@@ -16,7 +16,7 @@ bot.on('text', (ctx) => {
     let msg = `[${ctx.from}]: ${ctx.message.text}`
     console.log(`Telegram -> Factorio ${msg}`)
     if (ctx.message.text) {
-        rcon_client.send($msg)
+        rcon_client.send(msg)
     }
 })
 bot.hears('!stop', (ctx) => ctx.reply('Relay STOPPED'))
