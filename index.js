@@ -15,7 +15,9 @@ bot.start((ctx) => ctx.reply("Welcome to Ana's Factorio"))
 bot.on('text', (ctx) => {
     let msg = `[${ctx.from}]: ${ctx.message.text}`
     console.log(`Telegram -> Factorio ${msg}`)
-    if (ctx.message.text) {
+    if (ctx.message.text.startsWith('/')) {
+        rcon_client.send(ctx.message.text)
+    } else {
         rcon_client.send(msg)
     }
 })
