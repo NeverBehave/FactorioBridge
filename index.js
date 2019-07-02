@@ -13,8 +13,10 @@ bot.telegram.getMe().then((bot_informations) => {
 
 bot.start((ctx) => ctx.reply("Welcome to Ana's Factorio"))
 bot.on('text', (ctx) => {
+    let msg = `[${ctx.from}]: ${ctx.message.text}`
+    console.log(`Telegram -> Factorio ${msg}`)
     if (ctx.message.text) {
-        rcon_client.send(`[${ctx.from}]: ${ctx.message.text}`)
+        rcon_client.send($msg)
     }
 })
 bot.hears('!stop', (ctx) => ctx.reply('Relay STOPPED'))
@@ -27,6 +29,7 @@ rcon_client.on('auth', () => {
 
 rcon_client.on('response', (data) => {
     if (data !== '') {
+        console.log(`Factorio -> Telegram ${data}`)
         bot.telegram.sendMessage(group_id, data)
     }
 })
@@ -47,15 +50,15 @@ function checkMessage(str) {
     if (!str.startsWith('=')) {
         arr = str.trim().split(' ')
         arr.splice(0, 2) // Remove first 2 info
-        switch(str[0]) {
+        switch(arr[0]) {
             case '[CHAT]': 
-            if (str[1] === '<server>:') {
-                str = [] // Don't send anything
+            if (arr[1] === '<server>:') {
+                arr = [] // Don't send anything
             }
             break
             default: 
         }
-        return str.join(' ')
+        return arr.join(' ')
     }
 
     return ''
@@ -65,6 +68,7 @@ tail_client.on("line", function(data) {
     breakLine(data).forEach(e => {
         let str = checkMessage(e)
         if (str) {
+            console.log(`Factorio -> Telegram ${str}`)
             bot.telegram.sendMessage(group_id, str)
         }
     })
