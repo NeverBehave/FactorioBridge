@@ -21,6 +21,7 @@ bot.telegram.getMe().then((bot_informations) => {
 
 bot.start((ctx) => ctx.reply("Welcome to Ana's Factorio"))
 bot.on('text', (ctx) => {
+    let name = ctx.from.username || (ctx.from.first_name + ctx.from.last_name).slice(0, 10)
     let msg = `[${ctx.from}]: ${ctx.message.text}`
     console.log(`Telegram -> Factorio ${msg}`)
     if (ctx.message.text.startsWith('/')) {
