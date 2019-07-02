@@ -2,8 +2,16 @@ require('dotenv').config()
 const Telegraf = require('telegraf')
 const rcon_client = require('./rcon')
 const tail_client = require('./reader')
+let config = null
 
-const bot = new Telegraf(process.env.BOT_TOKEN)
+if (process.env.PROXY) {
+    config = require('./proxy')
+}
+const bot = new Telegraf(process.env.BOT_TOKEN, {
+    telegram: {
+        agent: config
+    }
+})
 const group_id = process.env.TELEGRAM_GROUP_ID
 
 bot.telegram.getMe().then((bot_informations) => {

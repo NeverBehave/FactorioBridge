@@ -2,6 +2,7 @@
   "dependencies": {
     "dotenv": "^8.0.0",
     "rcon": "^1.0.3",
+    "socks-proxy-agent": "^4.0.2",
     "tail": "^2.0.2",
     "telegraf": "^3.30.1"
   },
