@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "rcon": "^1.0.3",
+    "tail": "^2.0.2",
+    "telegraf": "^3.30.1"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
